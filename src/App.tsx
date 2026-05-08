@@ -19,6 +19,7 @@ import { Locations } from './components/sections/Locations';
 import { FAQ } from './components/sections/FAQ';
 import { Newsletter } from './components/sections/Newsletter';
 import { Footer } from './components/layout/Footer';
+import { AuthProvider } from './context/AuthContext';
 import { CartProvider, useCart } from './context/CartContext';
 import { CartDrawer } from './components/cart/CartDrawer';
 
@@ -87,9 +88,11 @@ function AppContent() {
 
 export default function App() {
   return (
-    <CartProvider>
-      <AppContent />
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <AppContent />
+      </CartProvider>
+    </AuthProvider>
   );
 }
 

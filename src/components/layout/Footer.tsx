@@ -34,26 +34,26 @@ export function Footer() {
               </div>
            </div>
 
-           {/* Links */}
-           <div>
-              <h5 className="font-black uppercase tracking-widest text-xs text-brand-lime mb-6">Menu</h5>
-              <ul className="space-y-4 text-white/50 text-sm font-bold">
-                 <li><a href="#" className="hover:text-white transition-colors">Volcano Burgers</a></li>
-                 <li><a href="#" className="hover:text-white transition-colors">Gisenyi Chicken</a></li>
-                 <li><a href="#" className="hover:text-white transition-colors">Digital Drops</a></li>
-                 <li><a href="#" className="hover:text-white transition-colors">Kigali Combos</a></li>
-              </ul>
-           </div>
+            {/* Links */}
+            <div>
+               <h5 className="font-black uppercase tracking-widest text-xs text-brand-lime mb-6">Menu</h5>
+               <ul className="space-y-4 text-white/50 text-sm font-bold">
+                  <li><button onClick={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-white transition-colors">Volcano Burgers</button></li>
+                  <li><button onClick={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-white transition-colors">Gisenyi Chicken</button></li>
+                  <li><button onClick={() => document.getElementById('deals')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-white transition-colors">Digital Drops</button></li>
+                  <li><button onClick={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-white transition-colors">Kigali Combos</button></li>
+               </ul>
+            </div>
 
-           <div>
-              <h5 className="font-black uppercase tracking-widest text-xs text-brand-green mb-6">Company</h5>
-              <ul className="space-y-4 text-white/50 text-sm font-bold">
-                 <li><a href="#" className="hover:text-white transition-colors">The Green Story</a></li>
-                 <li><a href="#" className="hover:text-white transition-colors">Local Farmers</a></li>
-                 <li><a href="#" className="hover:text-white transition-colors">Investors</a></li>
-                 <li><a href="#" className="hover:text-white transition-colors">Sustainability</a></li>
-              </ul>
-           </div>
+            <div>
+               <h5 className="font-black uppercase tracking-widest text-xs text-brand-green mb-6">Experience</h5>
+               <ul className="space-y-4 text-white/50 text-sm font-bold">
+                  <li><button onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-white transition-colors">The Green Story</button></li>
+                  <li><button onClick={() => document.getElementById('locations')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-white transition-colors">Live Map</button></li>
+                  <li><button onClick={() => document.getElementById('bookings')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-white transition-colors">Book A Table</button></li>
+                  <li><button onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-white transition-colors">Sustainability</button></li>
+               </ul>
+            </div>
 
            <div>
               <h5 className="font-black uppercase tracking-widest text-xs text-brand-yellow mb-6">Support</h5>
@@ -74,7 +74,7 @@ export function Footer() {
             onClick={scrollToTop}
             className="group flex flex-col items-center gap-2"
            >
-             <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-brand-red transition-all">
+             <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-brand-green group-hover:text-dark-surface transition-all">
                 <ArrowUp className="w-5 h-5 group-hover:-translate-y-1 transition-transform" />
              </div>
              <span className="text-[8px] font-black uppercase tracking-widest text-white/40">Back to Top</span>

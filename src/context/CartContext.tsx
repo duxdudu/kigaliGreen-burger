@@ -13,12 +13,15 @@ interface CartContextType {
   clearCart: () => void;
   total: number;
   itemCount: number;
+  isTrackingActive: boolean;
+  setIsTrackingActive: (active: boolean) => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [isTrackingActive, setIsTrackingActive] = useState(false);
 
   const addToCart = (item: MenuItem) => {
     setCart(prev => {
@@ -50,7 +53,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, clearCart, total, itemCount }}>
+    <CartContext.Provider value={{ 
+      cart, 
+      addToCart, 
+      removeFromCart, 
+      updateQuantity, 
+      clearCart, 
+      total, 
+      itemCount,
+      isTrackingActive,
+      setIsTrackingActive
+    }}>
       {children}
     </CartContext.Provider>
   );

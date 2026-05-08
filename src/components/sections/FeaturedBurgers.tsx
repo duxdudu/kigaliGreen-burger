@@ -5,10 +5,12 @@ import { MENU_ITEMS, CATEGORIES } from '../../constants';
 import { Button } from '../ui/Button';
 import { cn } from '../../lib/utils';
 import { useCart } from '../../context/CartContext';
+import { useAuth } from '../../context/AuthContext';
 
 export function FeaturedBurgers() {
   const [activeCategory, setActiveCategory] = useState<typeof CATEGORIES[number]>('Burgers');
   const { addToCart } = useCart();
+  const { isFavorite, toggleFavorite, user, signIn } = useAuth();
 
   const filteredItems = MENU_ITEMS.filter(item => item.category === activeCategory);
 
@@ -74,34 +76,60 @@ export function FeaturedBurgers() {
                 </div>
               )}
 
-              {/* ... existing code ... */}
+              {/* Image Container */}
+              <div className="relative aspect-square overflow-hidden bg-white/5">
+                <img 
+                  src={item.image} 
+                  alt={item.name} 
+                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark-card via-transparent to-transparent opacity-80" />
+                
+                {/* Overlay Actions */}
+                <div className="absolute top-6 right-6 flex flex-col gap-3 translate-x-12 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300">
+                  <button 
+                    onClick={() => user ? toggleFavorite(item.id) : signIn()}
+                    className={cn(
+                      "w-10 h-10 rounded-full backdrop-blur-md border flex items-center justify-center transition-all duration-300",
+                      isFavorite(item.id)
+                        ? "bg-brand-green text-dark-surface border-brand-green scale-110 shadow-[0_0_15px_rgba(74,222,128,0.5)]"
+                        : "bg-white/10 border-white/10 hover:bg-brand-green hover:text-dark-surface"
+                    )}
+                  >
+                    <Heart className={cn("w-5 h-5", isFavorite(item.id) && "fill-current")} />
+                  </button>
+                  <button className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/10 flex items-center justify-center hover:bg-brand-green hover:text-dark-surface transition-colors">
+                    <Eye className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
 
               {/* Content */}
               <div className="p-8">
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <h3 className="text-2xl font-black uppercase mb-1">{item.name}</h3>
+                    <h3 className="text-2xl font-black uppercase mb-1 tracking-tight">{item.name}</h3>
                     <div className="flex items-center gap-2">
                        <div className="flex items-center gap-1 text-brand-lime">
                          <Star className="w-3 h-3 fill-current" />
                          <span className="text-xs font-bold">{item.rating}</span>
                        </div>
-                       <span className="text-[10px] text-white/40 font-bold uppercase tracking-widest">({item.reviews} reviews)</span>
+                       <span className="text-[10px] text-white/40 font-bold uppercase tracking-widest leading-none">({item.reviews} reviews)</span>
                     </div>
                   </div>
-                  <div className="text-2xl font-black text-brand-green">{item.price.toLocaleString()} Frw</div>
+                  <div className="text-2xl font-black text-brand-green">{(item.price).toLocaleString()} <span className="text-[10px] text-white/40">FRW</span></div>
                 </div>
 
-                <p className="text-white/50 text-sm mb-8 line-clamp-2 italic">
-                  "{item.description}"
+                <p className="text-white/30 text-xs mb-8 line-clamp-2 uppercase font-bold tracking-widest italic">
+                  {item.description}
                 </p>
 
                 <Button 
                   onClick={() => addToCart(item)}
-                  className="w-full gap-2 group-hover:bg-brand-lime group-hover:shadow-brand-lime/20 transition-all duration-300"
+                  className="w-full gap-2 group-hover:bg-brand-lime group-hover:text-dark-surface transition-all duration-300 py-6"
                 >
                   <ShoppingCart className="w-5 h-5" />
-                  Add to Custom Order
+                  Customize & Add
                 </Button>
               </div>
             </motion.div>
@@ -113,7 +141,13 @@ export function FeaturedBurgers() {
           whileInView={{ opacity: 1 }}
           className="mt-16 text-center"
         >
-          <Button variant="outline" size="lg">Explore Full Menu</Button>
+          <Button 
+            variant="outline" 
+            size="lg"
+            onClick={() => document.getElementById('bookings')?.scrollIntoView({ behavior: 'smooth' })}
+          >
+            Reserve Your Table
+          </Button>
         </motion.div>
       </div>
     </section>

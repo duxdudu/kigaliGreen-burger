@@ -4,11 +4,15 @@ import { useState, useEffect } from 'react';
 import { Button } from '../ui/Button';
 import { cn } from '../../lib/utils';
 import { useCart } from '../../context/CartContext';
+import { useAuth } from '../../context/AuthContext';
+import { ProfileModal } from '../ui/ProfileModal';
 
 export function Navbar({ onCartClick }: { onCartClick: () => void }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const { itemCount } = useCart();
+  const { user, signIn, signOut } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -82,10 +86,23 @@ export function Navbar({ onCartClick }: { onCartClick: () => void }) {
               )}
             </AnimatePresence>
           </Button>
-          <Button variant="primary" size="sm" className="gap-2">
-            <User className="w-4 h-4" />
-            Sign In
-          </Button>
+          
+          {user ? (
+            <div className="flex items-center gap-3 bg-white/5 border border-white/10 p-1 pl-4 rounded-full">
+              <span className="text-xs font-black uppercase tracking-widest">{user.displayName?.split(' ')[0]}</span>
+              <button 
+                onClick={() => setIsProfileOpen(true)}
+                className="w-8 h-8 rounded-full overflow-hidden border border-brand-green/30 hover:border-brand-green transition-colors"
+              >
+                <img src={user.photoURL || ''} alt="User" className="w-full h-full object-cover" />
+              </button>
+            </div>
+          ) : (
+            <Button onClick={signIn} variant="primary" size="sm" className="gap-2">
+              <User className="w-4 h-4" />
+              Sign In
+            </Button>
+          )}
         </div>
 
         {/* Mobile Menu Trigger */}
@@ -135,6 +152,7 @@ export function Navbar({ onCartClick }: { onCartClick: () => void }) {
           </motion.div>
         )}
       </AnimatePresence>
+      <ProfileModal isOpen={isProfileOpen} onClose={() => setIsProfileOpen(false)} />
     </nav>
   );
 }

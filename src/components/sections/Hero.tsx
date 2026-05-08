@@ -35,11 +35,20 @@ export function Hero() {
           </p>
 
           <div className="flex flex-wrap gap-4 mb-12">
-            <Button size="xl" className="group">
+            <Button 
+              size="xl" 
+              className="group"
+              onClick={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })}
+            >
               Order in Kigali
               <ArrowRight className="ml-2 w-6 h-6 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <Button variant="outline" size="xl" className="gap-2">
+            <Button 
+              variant="outline" 
+              size="xl" 
+              className="gap-2"
+              onClick={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })}
+            >
               <Play className="w-5 h-5 fill-current" />
               View Menu
             </Button>
@@ -123,7 +132,7 @@ export function Hero() {
           </motion.div>
 
           {/* Background Glow */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-brand-red/20 via-transparent to-brand-orange/20 rounded-full blur-[150px] scale-150 animate-pulse" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-brand-green/20 via-transparent to-brand-lime/20 rounded-full blur-[150px] scale-150 animate-pulse" />
         </motion.div>
       </div>
     </section>

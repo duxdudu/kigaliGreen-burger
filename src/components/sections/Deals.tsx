@@ -56,8 +56,12 @@ export function Deals() {
               ))}
             </div>
 
-            <Button size="lg" className="group">
-              Claim in App
+            <Button 
+              size="lg" 
+              className="group"
+              onClick={() => document.getElementById('bookings')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Get Exclusive Access
               <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
           </motion.div>

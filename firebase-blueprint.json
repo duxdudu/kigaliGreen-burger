@@ -1,0 +1,56 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Basic information about the user",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Unique Firebase Auth ID" },
+        "email": { "type": "string", "description": "User's email address" },
+        "displayName": { "type": "string", "description": "User's display name" },
+        "photoURL": { "type": "string", "description": "User's profile picture URL" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Account creation timestamp" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Order": {
+      "title": "Order History",
+      "description": "Details of a completed booking/order",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "ID of the user who placed the order" },
+        "items": { "type": "array", "description": "List of items in the order" },
+        "total": { "type": "number", "description": "Total price of the order" },
+        "status": { "type": "string", "description": "Current status of the order" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Order placement timestamp" },
+        "deliveryTime": { "type": "string", "description": "Estimated delivery time range" }
+      },
+      "required": ["userId", "items", "total", "createdAt"]
+    },
+    "Favorite": {
+      "title": "Favorite Item",
+      "description": "Link between a user and a menu item they like",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "ID of the user" },
+        "itemId": { "type": "string", "description": "ID of the menu item" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When it was favorited" }
+      },
+      "required": ["userId", "itemId", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Collection of user profile data"
+    },
+    "/users/{userId}/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Subcollection of order history for each user"
+    },
+    "/users/{userId}/favorites/{favoriteId}": {
+      "schema": "Favorite",
+      "description": "Subcollection of favorited items for each user"
+    }
+  }
+}

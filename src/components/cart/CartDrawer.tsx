@@ -2,13 +2,32 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ShoppingBag, X, Plus, Minus, Trash2, ArrowRight, CheckCircle2, Clock } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
+import { useAuth } from '../../context/AuthContext';
 import { Button } from '../ui/Button';
+import { db } from '../../lib/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { handleFirestoreError, OperationType } from '../../lib/firestoreUtils';
 
 export function CartDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
-  const { cart, updateQuantity, removeFromCart, total, itemCount, clearCart } = useCart();
+  const { cart, updateQuantity, removeFromCart, total, itemCount, clearCart, setIsTrackingActive } = useCart();
+  const { user } = useAuth();
   const [isConfirmed, setIsConfirmed] = useState(false);
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
+    if (user) {
+      try {
+        await addDoc(collection(db, 'users', user.uid, 'orders'), {
+          userId: user.uid,
+          items: cart.map(item => ({ id: item.id, name: item.name, quantity: item.quantity, price: item.price })),
+          total: total,
+          status: 'PREPARING',
+          createdAt: serverTimestamp(),
+          deliveryTime: '30-45 mins'
+        });
+      } catch (error) {
+        handleFirestoreError(error, OperationType.WRITE, `users/${user.uid}/orders`);
+      }
+    }
     setIsConfirmed(true);
   };
 
@@ -94,9 +113,24 @@ export function CartDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () =
                       </div>
                     </div>
 
-                    <Button onClick={handleClose} variant="outline" className="mt-12 w-full">
-                      Back to Menu
-                    </Button>
+                    <div className="w-full space-y-4 pt-12">
+                      <Button 
+                        onClick={() => {
+                          setIsTrackingActive(true);
+                          handleClose();
+                          setTimeout(() => {
+                            document.getElementById('bookings')?.scrollIntoView({ behavior: 'smooth' });
+                          }, 300);
+                        }} 
+                        className="w-full gap-2 py-6"
+                      >
+                        Track Order Live
+                        <ArrowRight className="w-5 h-5" />
+                      </Button>
+                      <Button onClick={handleClose} variant="outline" className="w-full">
+                        Back to Menu
+                      </Button>
+                    </div>
                   </motion.div>
                 ) : (
                   <motion.div key="list" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
