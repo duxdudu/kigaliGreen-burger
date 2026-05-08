@@ -33,7 +33,7 @@ export function FAQ() {
              <span className="font-black uppercase tracking-widest text-[10px]">Burger Intel</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-black uppercase text-black">Common <span className="text-gradient">Questions</span></h2>
-          <p className="text-black/40 text-[10px] uppercase font-black tracking-widest mt-4">Everything you need to know about the global grill experience.</p>
+          <p className="text-black/40 text-[10px] uppercase font-black tracking-widest mt-4">Everything you need to know about the Kigali grill experience.</p>
         </div>
 
         <div className="space-y-4">

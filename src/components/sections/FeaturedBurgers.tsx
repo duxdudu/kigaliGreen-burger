@@ -1,14 +1,16 @@
 import { motion } from 'motion/react';
-import { Star, ShoppingCart, Heart, Eye } from 'lucide-react';
+import { Star, ShoppingCart, Heart, Hammer } from 'lucide-react';
 import { useState } from 'react';
-import { MENU_ITEMS, CATEGORIES } from '../../constants';
+import { MENU_ITEMS, CATEGORIES, MenuItem } from '../../constants';
 import { Button } from '../ui/Button';
 import { cn } from '../../lib/utils';
 import { useCart } from '../../context/CartContext';
 import { useAuth } from '../../context/AuthContext';
+import { BurgerCustomizationModal } from '../ui/BurgerCustomizationModal';
 
 export function FeaturedBurgers() {
   const [activeCategory, setActiveCategory] = useState<typeof CATEGORIES[number]>('Burgers');
+  const [customizingItem, setCustomizingItem] = useState<MenuItem | null>(null);
   const { addToCart } = useCart();
   const { isFavorite, toggleFavorite, user, signIn } = useAuth();
 
@@ -16,8 +18,8 @@ export function FeaturedBurgers() {
 
   return (
     <section id="menu" className="py-24 px-6 bg-white">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+      <div className="max-w-7xl mx-auto flex flex-col items-center">
+        <div className="w-full flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
           <div>
             <motion.span 
               initial={{ opacity: 0, y: 10 }}
@@ -103,6 +105,14 @@ export function FeaturedBurgers() {
                   >
                     <Heart className={cn("w-5 h-5", isFavorite(item.id) && "fill-current")} />
                   </button>
+                  {item.category === 'Burgers' && (
+                    <button 
+                      onClick={() => setCustomizingItem(item)}
+                      className="w-10 h-10 rounded-full backdrop-blur-md border border-black/5 bg-white/80 flex items-center justify-center hover:bg-brand-red hover:text-white transition-all duration-300"
+                    >
+                      <Hammer className="w-5 h-5" />
+                    </button>
+                  )}
                 </div>
               </div>
 
@@ -122,21 +132,58 @@ export function FeaturedBurgers() {
                   <div className="text-xl font-black text-brand-red">{(item.price).toLocaleString()} <span className="text-[8px] text-black/40">FRW</span></div>
                 </div>
 
-                <p className="text-black/40 text-[10px] uppercase font-bold tracking-widest leading-relaxed mb-8 line-clamp-2 italic">
+                <p className="text-black/40 text-[10px] uppercase font-bold tracking-widest leading-relaxed mb-6 line-clamp-2 italic">
                   {item.description}
                 </p>
 
-                <Button 
-                  onClick={() => addToCart(item)}
-                  className="w-full gap-2 group-hover:bg-brand-yellow group-hover:text-black transition-all duration-300 py-6 text-xs uppercase font-black"
-                >
-                  <ShoppingCart className="w-5 h-5" />
-                  Add to Cart
-                </Button>
+                {/* Ingredient Anatomy */}
+                {item.ingredients && (
+                  <div className="mb-8">
+                    <p className="text-[7px] text-black/20 font-black uppercase tracking-[3px] mb-3">Ingredient Anatomy</p>
+                    <div className="flex flex-wrap gap-1.5">
+                       {item.ingredients.map((ing) => (
+                         <span 
+                          key={ing} 
+                          className="px-2 py-1 bg-zinc-50 border border-black/5 rounded-md text-[7px] font-black uppercase tracking-tight text-black/40 hover:border-brand-red/30 transition-colors cursor-default"
+                         >
+                           {ing}
+                         </span>
+                       ))}
+                    </div>
+                  </div>
+                )}
+
+                <div className="flex gap-2">
+                  <Button 
+                    onClick={() => addToCart(item)}
+                    className="flex-1 gap-2 group-hover:bg-brand-yellow group-hover:text-black transition-all duration-300 py-6 text-xs uppercase font-black"
+                  >
+                    <ShoppingCart className="w-5 h-5" />
+                    Add
+                  </Button>
+                  {item.category === 'Burgers' && (
+                    <Button 
+                      variant="outline"
+                      onClick={() => setCustomizingItem(item)}
+                      className="px-6 py-6 border-black/10 hover:border-brand-red hover:bg-brand-red hover:text-white text-black/40 transition-all duration-300"
+                    >
+                      <Hammer className="w-5 h-5" />
+                    </Button>
+                  )}
+                </div>
               </div>
             </motion.div>
           ))}
         </motion.div>
+
+        {customizingItem && (
+          <BurgerCustomizationModal
+            isOpen={!!customizingItem}
+            onClose={() => setCustomizingItem(null)}
+            item={customizingItem}
+            onConfirm={(customization) => addToCart(customizingItem, customization)}
+          />
+        )}
       </div>
     </section>
   );

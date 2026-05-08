@@ -19,7 +19,7 @@ export function CartDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () =
       particleCount: 150,
       spread: 70,
       origin: { y: 0.6 },
-      colors: ['#D62828', '#FFC72C', '#F5A623', '#000000']
+      colors: ['#FF6B00', '#FFC72C', '#FF9F1C', '#000000']
     });
   };
 
@@ -34,7 +34,13 @@ export function CartDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () =
       try {
         await addDoc(collection(db, 'users', user.uid, 'orders'), {
           userId: user.uid,
-          items: cart.map(item => ({ id: item.id, name: item.name, quantity: item.quantity, price: item.price })),
+          items: cart.map(item => ({ 
+            id: item.id, 
+            name: item.name, 
+            quantity: item.quantity, 
+            price: item.price,
+            customization: item.customization || null
+          })),
           total: total,
           status: 'PREPARING',
           createdAt: serverTimestamp(),
@@ -157,7 +163,7 @@ export function CartDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () =
                       cart.map((item) => (
                         <motion.div 
                           layout
-                          key={item.id} 
+                          key={item.cartItemId} 
                           className="flex gap-4 group"
                         >
                           <div className="w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 border border-black/5 bg-zinc-100">
@@ -168,6 +174,23 @@ export function CartDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () =
                               <div>
                                 <h4 className="font-black uppercase text-xs text-black/80 group-hover:text-brand-red transition-colors">{item.name}</h4>
                                 <p className="text-[8px] text-black/40 font-black uppercase tracking-[2px]">{item.category}</p>
+                                {item.customization && (
+                                  <div className="mt-2 space-y-1">
+                                    <p className="text-[7px] text-brand-red font-black uppercase tracking-widest bg-brand-red/5 px-2 py-0.5 rounded-full inline-block">Crafted Build</p>
+                                    <div className="flex flex-wrap gap-1">
+                                       <span className="text-[6px] px-1.5 py-0.5 bg-black/5 text-black/60 rounded-md font-black uppercase tracking-tight">{item.customization.bun}</span>
+                                       {item.customization.toppings.map(t => (
+                                         <span key={t} className="text-[6px] px-1.5 py-0.5 bg-brand-red/5 text-brand-red rounded-md font-black uppercase tracking-tight">{t}</span>
+                                       ))}
+                                    </div>
+                                  </div>
+                                )}
+                                {!item.customization && item.ingredients && (
+                                  <div className="mt-2">
+                                    <p className="text-[6px] text-black/20 font-black uppercase tracking-widest mb-1">Standard Anatomy</p>
+                                    <p className="text-[6px] text-black/40 font-black uppercase tracking-tight truncate max-w-[150px]">{item.ingredients.join(', ')}</p>
+                                  </div>
+                                )}
                               </div>
                               <span className="font-black text-brand-red text-sm">{(item.price * item.quantity).toLocaleString()} FRW</span>
                             </div>
@@ -175,21 +198,21 @@ export function CartDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () =
                             <div className="flex items-center justify-between">
                                <div className="flex items-center gap-3 bg-black/[0.04] rounded-xl p-1">
                                   <button 
-                                    onClick={() => updateQuantity(item.id, -1)}
+                                    onClick={() => updateQuantity(item.cartItemId, -1)}
                                     className="w-6 h-6 flex items-center justify-center hover:bg-black/10 rounded-full transition-colors"
                                   >
                                     <Minus className="w-3 h-3 text-black/40" />
                                   </button>
                                   <span className="text-[10px] font-black min-w-[20px] text-center text-black">{item.quantity}</span>
                                   <button 
-                                    onClick={() => updateQuantity(item.id, 1)}
+                                    onClick={() => updateQuantity(item.cartItemId, 1)}
                                     className="w-6 h-6 flex items-center justify-center hover:bg-black/10 rounded-full transition-colors"
                                   >
                                     <Plus className="w-3 h-3 text-black" />
                                   </button>
                                </div>
                                <button 
-                                onClick={() => removeFromCart(item.id)}
+                                onClick={() => removeFromCart(item.cartItemId)}
                                 className="p-1.5 text-black/20 hover:text-brand-red transition-colors"
                                >
                                   <Trash2 className="w-4 h-4" />

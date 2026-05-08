@@ -17,10 +17,10 @@ export function Button({
   ...props 
 }: ButtonProps) {
   const variants = {
-    primary: 'bg-brand-green text-dark-surface hover:bg-brand-green/90 shadow-lg shadow-brand-green/20 font-black',
-    secondary: 'bg-brand-lime text-dark-surface hover:bg-brand-lime/90 shadow-lg shadow-brand-lime/20 font-black',
-    outline: 'border-2 border-white/20 bg-transparent hover:bg-white/10 text-white',
-    ghost: 'bg-transparent hover:bg-white/5 text-white',
+    primary: 'bg-brand-red text-white hover:bg-brand-red/90 shadow-lg shadow-brand-red/20 font-black',
+    secondary: 'bg-brand-yellow text-black hover:bg-brand-yellow/90 shadow-lg shadow-brand-yellow/20 font-black',
+    outline: 'border-2 border-brand-red/20 bg-transparent hover:bg-brand-red/5 text-brand-red',
+    ghost: 'bg-transparent hover:bg-black/5 text-black/60',
   };
 
   const sizes = {

@@ -143,7 +143,7 @@ function MarkerWithInfoWindow({
       title={location.name}
     >
       <Pin 
-        background={isSelected ? "#EF4444" : "#F59E0B"} 
+        background={isSelected ? "#FF6B00" : "#FF9F1C"} 
         glyphColor="#fff" 
         borderColor="#ffffff"
         scale={isSelected ? 1.4 : 1}

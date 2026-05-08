@@ -17,10 +17,10 @@ export function Gallery() {
           <div className="flex flex-col items-center text-center mb-16">
             <div className="flex items-center gap-2 text-brand-red mb-4">
               <ImageIcon className="w-5 h-5" />
-              <span className="font-black uppercase tracking-widest text-[10px]">#GlobalGrill</span>
+              <span className="font-black uppercase tracking-widest text-[10px]">#KigaliGrill</span>
             </div>
             <h2 className="text-4xl md:text-5xl font-black uppercase mb-4 tracking-tighter text-black">Flame <span className="text-gradient">Gallery</span></h2>
-            <p className="text-black/20 max-w-lg mb-8 uppercase font-black text-[10px] tracking-[0.2em]">Visual proof of our global obsession with flavor.</p>
+            <p className="text-black/20 max-w-lg mb-8 uppercase font-black text-[10px] tracking-[0.2em]">Visual proof of our Kigali obsession with flavor.</p>
             <button 
               onClick={() => window.open('https://instagram.com', '_blank')}
               className="group flex items-center gap-2 px-8 py-3 bg-zinc-50 border border-black/5 rounded-full hover:bg-brand-red hover:text-white transition-all font-black text-[10px] uppercase tracking-widest shadow-sm hover:shadow-xl hover:shadow-brand-red/20"

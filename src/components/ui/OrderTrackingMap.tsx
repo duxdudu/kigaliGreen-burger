@@ -117,7 +117,7 @@ export function OrderTrackingMap() {
            </div>
            <div className="h-2 w-full bg-black/5 rounded-full overflow-hidden">
               <motion.div 
-                className="h-full bg-brand-red shadow-[0_0_10px_rgba(230,30,42,0.5)]" 
+                className="h-full bg-brand-red shadow-[0_0_10px_rgba(255,107,0,0.5)]" 
                 initial={{ width: 0 }}
                 animate={{ width: `${progress}%` }}
               />

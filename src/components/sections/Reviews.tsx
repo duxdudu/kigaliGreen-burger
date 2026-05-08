@@ -14,8 +14,8 @@ export function Reviews() {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col items-center text-center mb-16">
           <Quote className="text-brand-red w-12 h-12 mb-6 opacity-10" />
-          <h2 className="text-4xl md:text-5xl font-black uppercase mb-4 text-black">Global <span className="text-gradient">Feedback</span></h2>
-          <p className="text-black/40 max-w-lg text-[10px] uppercase font-black tracking-widest leading-relaxed">Hear what our global community of burger enthusiasts has to say about the most authentic grills on the planet.</p>
+          <h2 className="text-4xl md:text-5xl font-black uppercase mb-4 text-black">Kigali <span className="text-gradient">Feedback</span></h2>
+          <p className="text-black/40 max-w-lg text-[10px] uppercase font-black tracking-widest leading-relaxed">Hear what the Kigali community has to say about the freshest gourmet burgers in the Land of a Thousand Hills.</p>
         </div>
 
         <div className="relative max-w-4xl mx-auto">

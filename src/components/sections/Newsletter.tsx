@@ -20,7 +20,7 @@ export function Newsletter() {
              </div>
              
              <h2 className="text-4xl md:text-6xl font-black uppercase mb-8 text-black leading-[0.9]">Join the <br /><span className="text-gradient">Grill Squad</span></h2>
-             <p className="text-black/40 text-[10px] uppercase font-black tracking-widest mb-12 max-w-sm mx-auto leading-relaxed italic">Get early access to global burger drops, secret midnight deals, and a free Elite burger on your birthday.</p>
+             <p className="text-black/40 text-[10px] uppercase font-black tracking-widest mb-12 max-w-sm mx-auto leading-relaxed italic">Get early access to Kigali burger drops, secret midnight deals, and a free Elite burger on your birthday.</p>
 
              <form className="max-w-md mx-auto flex flex-col md:flex-row gap-4">
                 <div className="flex-1 relative">

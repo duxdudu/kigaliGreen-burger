@@ -14,6 +14,7 @@ export interface MenuItem {
   description: string;
   country: string;
   badge?: string;
+  ingredients?: string[];
 }
 
 export interface Review {
@@ -36,7 +37,8 @@ export const MENU_ITEMS: MenuItem[] = [
     image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800',
     description: 'Double flame-grilled beef, bird\'s eye chili, and organic local cheddar.',
     country: 'Rwanda',
-    badge: 'Signature'
+    badge: 'Signature',
+    ingredients: ['Akagera Beef', 'Bird\'s Eye Chili', 'Local Cheddar', 'Organic Lettuce', 'Vine Tomatoes']
   },
   {
     id: 'b2',
@@ -48,7 +50,8 @@ export const MENU_ITEMS: MenuItem[] = [
     image: 'https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?q=80&w=800',
     description: 'Smoky BBQ glaze, crispy bacon, and oversized onion rings.',
     country: 'USA',
-    badge: 'Heavyweight'
+    badge: 'Heavyweight',
+    ingredients: ['Grain-fed Beef', 'Double Bacon', 'Crispy Onion Rings', 'Smoky BBQ Sauce', 'Colby Jack']
   },
   {
     id: 'b3',
@@ -60,7 +63,8 @@ export const MENU_ITEMS: MenuItem[] = [
     image: 'https://images.unsplash.com/photo-1550317144-b38c270323ee?q=80&w=800',
     description: 'Wagyu beef, shiitake mushrooms, and wasabi-infused mayo.',
     country: 'Japan',
-    badge: 'Premium'
+    badge: 'Premium',
+    ingredients: ['Wagyu Beef', 'Shiitake Mushrooms', 'Wasabi Mayo', 'Nori Flakes', 'Pickled Ginger']
   },
   {
     id: 'b4',
@@ -71,7 +75,8 @@ export const MENU_ITEMS: MenuItem[] = [
     reviews: 620,
     image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?q=80&w=800',
     description: 'Brie cheese, caramelized onions, and a touch of truffle oil.',
-    country: 'France'
+    country: 'France',
+    ingredients: ['Prime Beef', 'Brie de Meaux', 'Caramelized Onions', 'Black Truffle Oil', 'Wild Arugula']
   },
   {
     id: 'b5',
@@ -82,7 +87,8 @@ export const MENU_ITEMS: MenuItem[] = [
     reviews: 430,
     image: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d?q=80&w=800',
     description: 'Chimichurri salsa, avocado, and grilled pineapple.',
-    country: 'Brazil'
+    country: 'Brazil',
+    ingredients: ['Grass-fed Beef', 'Chimichurri Salsa', 'Hass Avocado', 'Grilled Pineapple', 'Red Onions']
   },
   {
     id: 'b6',
@@ -93,7 +99,8 @@ export const MENU_ITEMS: MenuItem[] = [
     reviews: 310,
     image: 'https://images.unsplash.com/photo-1512152272829-e3139592d56f?q=80&w=800',
     description: 'Classic British beef, gorgonzola, and pear chutney.',
-    country: 'UK'
+    country: 'UK',
+    ingredients: ['Angus Beef', 'Gorgonzola Dolce', 'Pear Chutney', 'Baby Spinach', 'English Mustard']
   },
   {
     id: 'b7',

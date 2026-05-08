@@ -31,11 +31,11 @@ export function Deals() {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-red/10 border border-brand-red/20 rounded-full text-brand-red text-[10px] font-black uppercase tracking-widest mb-8 shadow-sm">
               <Tag className="w-3 h-3" />
-              Limited Global Drops
+              Limited Kigali Drops
             </div>
             <h2 className="text-4xl md:text-6xl font-black uppercase mb-8 leading-[0.9] text-black">
               Weekend Fire <br />
-              <span className="text-brand-red">Global Deals</span>
+              <span className="text-brand-red">Kigali Deals</span>
             </h2>
             <p className="text-black/40 text-[11px] uppercase font-black tracking-widest mb-10 max-w-sm leading-relaxed italic">
               Buy any Elite Burger and get a second one for 50% OFF. Exclusive access for our global rewards members.

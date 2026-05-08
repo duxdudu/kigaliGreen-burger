@@ -5,9 +5,9 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Outfit", sans-serif;
   
-  --color-brand-red: #D62828;
+  --color-brand-red: #FF6B00;
   --color-brand-yellow: #FFC72C;
-  --color-brand-orange: #F5A623;
+  --color-brand-orange: #FF9F1C;
   --color-surface: #FFFFFF;
   --color-card: #F8F9FA;
   --color-text-main: #1A1A1A;
@@ -39,7 +39,7 @@
 }
 
 .burger-shadow {
-  box-shadow: 0 20px 40px rgba(230, 30, 42, 0.1);
+  box-shadow: 0 20px 40px rgba(255, 107, 0, 0.1);
 }
 
 .hide-scrollbar::-webkit-scrollbar {
