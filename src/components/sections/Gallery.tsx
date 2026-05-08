@@ -45,7 +45,7 @@ export function Gallery() {
                   <img 
                    src={img.url} 
                    alt="Food Gallery Item" 
-                   className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000 grayscale group-hover:grayscale-0 shadow-inner" 
+                   className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000 shadow-inner" 
                    referrerPolicy="no-referrer"
                   />
                   <div className="absolute inset-0 bg-brand-red/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center backdrop-blur-[2px]">

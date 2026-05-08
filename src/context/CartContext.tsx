@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { MenuItem } from '../constants';
+import { toast } from 'react-hot-toast';
 
 export interface BurgerCustomization {
   toppings: string[];
@@ -32,6 +33,18 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [isTrackingActive, setIsTrackingActive] = useState(false);
 
   const addToCart = (item: MenuItem, customization?: BurgerCustomization) => {
+    toast.success(`${item.name} added to cart`, {
+      icon: '🔥',
+      style: {
+        borderRadius: '16px',
+        background: '#000',
+        color: '#fff',
+        fontSize: '10px',
+        fontWeight: '900',
+        textTransform: 'uppercase',
+        letterSpacing: '2px'
+      },
+    });
     setCart(prev => {
       const customizationKey = customization ? JSON.stringify(customization) : '';
       const cartItemId = `${item.id}-${customizationKey}`;
@@ -45,6 +58,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
   };
 
   const removeFromCart = (cartItemId: string) => {
+    toast.error('Item removed from cart', {
+      style: {
+        borderRadius: '16px',
+        background: '#000',
+        color: '#fff',
+        fontSize: '10px',
+        fontWeight: '900',
+        textTransform: 'uppercase',
+        letterSpacing: '2px'
+      },
+    });
     setCart(prev => prev.filter(i => i.cartItemId !== cartItemId));
   };
 

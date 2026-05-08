@@ -50,7 +50,7 @@ export function NewsAndBooking() {
                   <img 
                     src="https://images.unsplash.com/photo-1616348436168-de43ad0db179?q=80&w=800" 
                     alt="Phone Frame" 
-                    className="w-full h-full object-contain opacity-40 group-hover:opacity-100 transition-opacity" 
+                    className="w-full h-full object-contain opacity-90 group-hover:opacity-100 transition-opacity" 
                   />
                   {/* The dark notch/island */}
                   <div className="absolute top-[6%] left-1/2 -translate-x-1/2 w-1/4 h-6 bg-black rounded-full z-30" />
@@ -125,7 +125,7 @@ export function NewsAndBooking() {
                     className="group flex gap-6 p-6 bg-white border border-black/5 rounded-[40px] hover:shadow-xl hover:shadow-black/5 transition-all cursor-pointer"
                   >
                     <div className="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0 border border-black/5 shadow-inner">
-                      <img src={item.image} alt={item.title} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-110 group-hover:scale-100" />
+                      <img src={item.image} alt={item.title} className="w-full h-full object-cover transition-all duration-500 scale-110 group-hover:scale-100" />
                     </div>
                     <div className="flex-1 flex flex-col justify-center">
                       <div className="flex justify-between items-center mb-1">

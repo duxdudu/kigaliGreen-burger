@@ -99,9 +99,14 @@ export function Deals() {
 
                 <div className="mt-12 flex items-center justify-between">
                    <div className="flex -space-x-3">
-                     {[1,2,3,4].map(i => (
+                     {[
+                       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100",
+                       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100",
+                       "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100",
+                       "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100"
+                     ].map((url, i) => (
                        <div key={i} className="w-10 h-10 rounded-full border-4 border-white bg-zinc-200 overflow-hidden shadow-sm">
-                         <img src={`https://i.pravatar.cc/100?u=${i}`} alt="Avatar" referrerPolicy="no-referrer" />
+                         <img src={url} alt="Avatar" referrerPolicy="no-referrer" />
                        </div>
                      ))}
                      <div className="w-10 h-10 rounded-full border-4 border-white bg-zinc-900 flex items-center justify-center text-[10px] font-black text-white shadow-sm">+5k</div>

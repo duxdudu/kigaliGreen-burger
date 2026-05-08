@@ -11,8 +11,15 @@ import { BurgerCustomizationModal } from '../ui/BurgerCustomizationModal';
 export function FeaturedBurgers() {
   const [activeCategory, setActiveCategory] = useState<typeof CATEGORIES[number]>('Burgers');
   const [customizingItem, setCustomizingItem] = useState<MenuItem | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const { addToCart } = useCart();
   const { isFavorite, toggleFavorite, user, signIn } = useAuth();
+
+  const handleCategoryChange = (cat: typeof CATEGORIES[number]) => {
+    setIsLoading(true);
+    setActiveCategory(cat);
+    setTimeout(() => setIsLoading(false), 800);
+  };
 
   const filteredItems = MENU_ITEMS.filter(item => item.category === activeCategory);
 
@@ -43,7 +50,7 @@ export function FeaturedBurgers() {
             {CATEGORIES.map((cat) => (
               <button
                 key={cat}
-                onClick={() => setActiveCategory(cat)}
+                onClick={() => handleCategoryChange(cat)}
                 className={cn(
                   "px-6 py-2 rounded-full text-xs font-black uppercase tracking-widest transition-all duration-300",
                   activeCategory === cat 
@@ -59,9 +66,24 @@ export function FeaturedBurgers() {
 
         <motion.div 
           layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full"
         >
-          {filteredItems.map((item, idx) => (
+          {isLoading ? (
+            Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className="bg-zinc-50 rounded-[40px] p-8 space-y-6 h-[500px] border border-black/5 animate-pulse">
+                <div className="aspect-square bg-zinc-200 rounded-[32px]" />
+                <div className="space-y-4">
+                  <div className="flex justify-between">
+                    <div className="h-6 w-1/2 bg-zinc-200 rounded" />
+                    <div className="h-6 w-1/4 bg-zinc-200 rounded" />
+                  </div>
+                  <div className="h-4 w-full bg-zinc-200 rounded" />
+                  <div className="h-20 w-full bg-zinc-200 rounded-2xl" />
+                </div>
+              </div>
+            ))
+          ) : (
+            filteredItems.map((item, idx) => (
             <motion.div
               layout
               key={item.id}
@@ -173,7 +195,7 @@ export function FeaturedBurgers() {
                 </div>
               </div>
             </motion.div>
-          ))}
+          )))}
         </motion.div>
 
         {customizingItem && (

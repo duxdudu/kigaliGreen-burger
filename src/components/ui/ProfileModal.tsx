@@ -116,7 +116,7 @@ export function ProfileModal({ isOpen, onClose }: { isOpen: boolean; onClose: ()
                          <p className="font-black uppercase text-[10px] tracking-widest text-black">Authenticating History...</p>
                       </div>
                     ) : orders.length === 0 ? (
-                      <div className="py-20 flex flex-col items-center justify-center opacity-10 text-center grayscale">
+                      <div className="py-20 flex flex-col items-center justify-center opacity-40 text-center">
                         <Package className="w-16 h-16 mb-4" />
                         <p className="text-xl font-black uppercase text-black">No Recent Bites</p>
                         <p className="italic uppercase text-[10px] font-black tracking-widest mt-2 text-black">Ready to explore global flavors?</p>
@@ -156,7 +156,7 @@ export function ProfileModal({ isOpen, onClose }: { isOpen: boolean; onClose: ()
                 ) : (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {favoriteItems.length === 0 ? (
-                       <div className="col-span-full py-20 flex flex-col items-center justify-center opacity-10 text-center grayscale">
+                       <div className="col-span-full py-20 flex flex-col items-center justify-center opacity-40 text-center">
                         <Heart className="w-16 h-16 mb-4" />
                         <p className="text-xl font-black uppercase text-black">Empty Favorites</p>
                         <p className="italic uppercase text-[10px] font-black tracking-widest mt-2 text-black">Heart your favorite global burgers.</p>
@@ -170,7 +170,7 @@ export function ProfileModal({ isOpen, onClose }: { isOpen: boolean; onClose: ()
                           key={item.id} 
                           className="group p-6 bg-white border border-black/5 rounded-[32px] hover:shadow-xl hover:shadow-black/5 transition-all flex items-center gap-6"
                         >
-                          <img src={item.image} alt={item.name} className="w-20 h-20 rounded-2xl object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all border border-black/5" />
+                          <img src={item.image} alt={item.name} className="w-20 h-20 rounded-2xl object-cover transition-all border border-black/5" />
                           <div className="flex-1">
                             <h4 className="font-black text-xs uppercase mb-1 text-black/80 group-hover:text-brand-red transition-colors">{item.name}</h4>
                             <p className="text-[10px] text-brand-red font-black uppercase tracking-widest">{(item.price).toLocaleString()} FRW</p>

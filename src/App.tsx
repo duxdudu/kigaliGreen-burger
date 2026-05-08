@@ -22,6 +22,11 @@ import { Footer } from './components/layout/Footer';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider, useCart } from './context/CartContext';
 import { CartDrawer } from './components/cart/CartDrawer';
+import { Toaster } from 'react-hot-toast';
+import { AdminDashboard } from './components/admin/AdminDashboard';
+import { OrderTrackingMap } from './components/ui/OrderTrackingMap';
+import { Button } from './components/ui/Button';
+import { X } from 'lucide-react';
 
 function AppContent() {
   const { scrollYProgress } = useScroll();
@@ -32,10 +37,26 @@ function AppContent() {
   });
 
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const { itemCount } = useCart();
+  const [isAdmin, setIsAdmin] = useState(false);
+  const { itemCount, isTrackingActive, setIsTrackingActive } = useCart();
+
+  if (isAdmin) {
+    return (
+      <>
+        <Toaster position="top-right" />
+        <div className="fixed top-4 right-4 z-[200]">
+           <Button onClick={() => setIsAdmin(false)} variant="secondary" className="rounded-full px-8 shadow-2xl">
+              Exit Command Center
+           </Button>
+        </div>
+        <AdminDashboard />
+      </>
+    );
+  }
 
   return (
-    <div className="relative selection:bg-brand-green selection:text-dark-surface">
+    <div className="relative selection:bg-brand-red selection:text-white">
+      <Toaster position="bottom-right" />
       {/* Scroll Progress Bar */}
       <motion.div 
         className="fixed top-0 left-0 right-0 h-1 bg-brand-green z-[100] origin-left"
@@ -46,6 +67,28 @@ function AppContent() {
       
       <main>
         <Hero />
+        
+        {/* Live Tracking Active Mode */}
+        {isTrackingActive && (
+          <section className="py-24 bg-zinc-50 border-y border-black/5 relative">
+            <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center mb-16 relative">
+              <button 
+                onClick={() => setIsTrackingActive(false)}
+                className="absolute right-6 top-0 p-3 bg-white border border-black/5 rounded-full hover:bg-brand-red hover:text-white transition-all shadow-xl"
+              >
+                <X className="w-5 h-5" />
+              </button>
+              <h2 className="text-4xl lg:text-6xl font-black uppercase tracking-tighter text-black mb-4">
+                In-Route: <span className="text-brand-red">Express Delivery</span>
+              </h2>
+              <p className="text-[10px] text-black/40 font-black uppercase tracking-[6px] italic">Live Logistics Stream from Command Center</p>
+            </div>
+            <div className="max-w-7xl mx-auto px-6 h-[600px]">
+              <OrderTrackingMap />
+            </div>
+          </section>
+        )}
+
         <FeaturedBurgers />
         <NewsAndBooking />
         <Deals />
@@ -58,7 +101,7 @@ function AppContent() {
         <Newsletter />
       </main>
 
-      <Footer />
+      <Footer onAdminToggle={() => setIsAdmin(true)} />
       
       <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
 

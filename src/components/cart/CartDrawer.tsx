@@ -1,18 +1,27 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ShoppingBag, X, Plus, Minus, Trash2, ArrowRight, CheckCircle2, Clock } from 'lucide-react';
+import { ShoppingBag, X, Plus, Minus, Trash2, ArrowRight, CheckCircle2, Clock, CreditCard, ShieldCheck } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useAuth } from '../../context/AuthContext';
 import { Button } from '../ui/Button';
+import { CheckoutModal } from './CheckoutModal';
 import { db } from '../../lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { handleFirestoreError, OperationType } from '../../lib/firestoreUtils';
 import confetti from 'canvas-confetti';
 
+function StripeLogo() {
+  return (
+    <svg viewBox="0 0 60 25" width="40" height="18" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M59.64 14.28c0-4.59-2.28-6.87-6.12-6.87-4.11 0-6.81 3.09-6.81 7.29 0 4.74 2.82 7.35 7.17 7.35 2.19 0 3.93-.57 5.1-1.29l-.93-2.1c-1.02.54-2.34.93-3.9.93-2.19 0-3.87-1.05-3.99-3.21h9.33c.03-.39.15-1.11.15-2.1zm-9.39-1.5c.12-1.92 1.44-3.03 3.12-3.03 1.62 0 2.82 1.08 2.82 3.03h-5.94zm-14.22-.39c0-1.35-.93-1.92-2.16-1.92-1.68 0-3.33.72-4.47 1.47l-.93-2.13c1.38-1.02 3.51-1.89 6.06-1.89 3.06 0 5.07 1.56 5.07 4.65v8.13h-3.09v-1.29c-.93.87-2.31 1.59-4.23 1.59-2.91 0-4.83-1.65-4.83-4.14 0-2.88 2.43-4.08 6.78-4.08h1.8v-.39zm-1.8 2.25c-2.43 0-3.75.69-3.75 1.89 0 1.02.84 1.62 2.07 1.62 1.35 0 2.58-.69 2.58-1.74v-1.77h-.9zm-16.71-4.2c-1.35-.6-1.98-.9-1.98-1.62 0-1.02 1.02-1.35 2.37-1.35 1.23 0 2.46.33 3.39.81l.93-2.22c-1.08-.6-2.67-1.02-4.74-1.02-3.15 0-5.28 1.65-5.28 4.29 0 4.14 5.67 2.4 5.67 5.16 0 1.11-1.14 1.5-2.67 1.5-1.53 0-3.18-.54-4.29-1.26l-.96 2.28c1.32.84 3.48 1.41 5.7 1.41 3.54 0 5.49-1.65 5.49-4.5.03-4.56-5.63-2.73-5.63-5.58zM17.43 8.35L17.43 5.47 13.92 5.47 13.92 2.41 10.83 3.22 10.83 5.47 8.34 5.47 8.34 8.35 10.83 8.35 10.83 18.25c0 2.79 1.47 4.23 4.26 4.23.99 0 1.83-.15 2.37-.36l-.3-2.67c-.24.09-.6.15-1.08.15-.96 0-1.17-.48-1.17-1.44V8.35H17.43zM3.48 14.5c0 2.2 1.69 3.02 3.65 3.02 1.08 0 1.9-.22 2.5-.5V14.5c-.65.26-1.4.45-2.25.45-1 0-1.6-.45-1.6-1.25V5.47H2.69v9.03z"/></svg>
+  );
+}
+
 export function CartDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const { cart, updateQuantity, removeFromCart, total, itemCount, clearCart, setIsTrackingActive } = useCart();
   const { user } = useAuth();
   const [isConfirmed, setIsConfirmed] = useState(false);
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
   const triggerConfetti = () => {
     confetti({
@@ -154,7 +163,7 @@ export function CartDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () =
                 ) : (
                   <motion.div key="list" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
                     {cart.length === 0 ? (
-                      <div className="h-full flex flex-col items-center justify-center text-center opacity-20 py-20 grayscale">
+                      <div className="h-full flex flex-col items-center justify-center text-center opacity-50 py-20">
                         <ShoppingBag className="w-16 h-16 mb-4" />
                         <p className="text-lg font-black uppercase">Your bag is empty.</p>
                         <p className="text-[10px] italic font-bold tracking-widest uppercase">The grill is getting cold!</p>
@@ -229,18 +238,41 @@ export function CartDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () =
 
             {/* Footer */}
             {cart.length > 0 && !isConfirmed && (
-              <div className="p-6 bg-white border-t border-black/5 space-y-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-black/40 font-black uppercase tracking-widest text-[10px]">Total Order</span>
-                  <span className="text-2xl font-black text-brand-red">{total.toLocaleString()} FRW</span>
+              <div className="p-8 border-t border-black/5 bg-zinc-50/50 space-y-6">
+                <div className="space-y-2">
+                   <div className="flex justify-between items-end">
+                      <span className="text-[10px] text-black/40 font-black uppercase tracking-widest leading-none">Subtotal</span>
+                      <span className="text-xl font-black text-black leading-none">{total.toLocaleString()} FRW</span>
+                   </div>
+                   <div className="flex justify-between items-end">
+                      <span className="text-[10px] text-black/20 font-black uppercase tracking-widest leading-none">Delivery Fee</span>
+                      <span className="text-[10px] font-black text-black/20 leading-none">1,500 FRW</span>
+                   </div>
                 </div>
-                <Button size="lg" onClick={handleConfirm} className="w-full gap-2 mt-4 group bg-brand-red text-white hover:bg-brand-red/90 py-6 text-sm uppercase font-black tracking-widest">
-                  Confirm Order
+                
+                <Button 
+                  onClick={() => setIsCheckoutOpen(true)}
+                  className="w-full h-16 rounded-2xl bg-[#635BFF] text-white hover:bg-[#5851E0] shadow-xl shadow-indigo-500/20 uppercase font-black text-xs tracking-widest flex items-center justify-center gap-4 transition-all group"
+                >
+                  <div className="flex flex-col items-start leading-none gap-1">
+                    <span className="text-[8px] opacity-70 font-black tracking-widest">Pay With</span>
+                    <StripeLogo />
+                  </div>
+                  <div className="h-8 w-px bg-white/20 mx-1" />
+                  <span className="text-sm font-black tracking-tighter">{(total + 1500).toLocaleString()} FRW</span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
-                <p className="text-center text-[7px] text-black/20 font-black uppercase tracking-[3px]">Global Secure Payments</p>
+                <div className="flex items-center justify-center gap-4 py-2 opacity-50">
+                   <ShieldCheck className="w-3 h-3 text-black/40" />
+                   <p className="text-[7px] text-black/40 font-black uppercase tracking-[3px]">Secure Checkout Process</p>
+                </div>
               </div>
             )}
+
+            <CheckoutModal 
+              isOpen={isCheckoutOpen} 
+              onClose={() => setIsCheckoutOpen(false)} 
+            />
           </motion.div>
         </>
       )}

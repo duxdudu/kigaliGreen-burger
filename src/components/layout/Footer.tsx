@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { Flame, Facebook, Twitter, Instagram, Youtube, ArrowUp } from 'lucide-react';
 
-export function Footer() {
+export function Footer({ onAdminToggle }: { onAdminToggle?: () => void }) {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
@@ -11,7 +11,10 @@ export function Footer() {
            {/* Branding */}
            <div className="col-span-2 space-y-8">
               <div className="flex items-center gap-3 group">
-                <div className="w-12 h-12 bg-brand-red rounded-xl flex items-center justify-center rotate-3 shadow-xl shadow-brand-red/20">
+                <div 
+                  onClick={onAdminToggle}
+                  className="w-12 h-12 bg-brand-red rounded-xl flex items-center justify-center rotate-3 shadow-xl shadow-brand-red/20 cursor-help"
+                >
                   <Flame className="text-white fill-current w-6 h-6" />
                 </div>
                 <span className="text-2xl font-black italic tracking-tighter uppercase text-black">

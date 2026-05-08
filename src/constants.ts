@@ -285,7 +285,7 @@ export const REVIEWS: Review[] = [
   {
     id: 'r1',
     name: 'Jean-Luc Habimana',
-    avatar: 'https://i.pravatar.cc/150?u=jean',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150',
     rating: 5,
     comment: 'The freshest ingredients I have tasted in Kigali. That Kigali Hill Beast is absolute fire!',
     date: '2 days ago'
@@ -293,7 +293,7 @@ export const REVIEWS: Review[] = [
   {
     id: 'r2',
     name: 'Diane Umutoni',
-    avatar: 'https://i.pravatar.cc/150?u=diane',
+    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150',
     rating: 5,
     comment: 'Finally, a gourmet burger spot in Nyarutarama that gets delivery right. Green and clean!',
     date: '1 week ago'
