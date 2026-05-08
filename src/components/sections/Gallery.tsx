@@ -12,21 +12,21 @@ const IMAGES = [
 
 export function Gallery() {
   return (
-    <section className="py-24 px-4 bg-[#080808]">
+    <section className="py-24 px-4 bg-white">
        <div className="max-w-7xl mx-auto">
           <div className="flex flex-col items-center text-center mb-16">
-            <div className="flex items-center gap-2 text-brand-lime mb-4">
+            <div className="flex items-center gap-2 text-brand-red mb-4">
               <ImageIcon className="w-5 h-5" />
-              <span className="font-black uppercase tracking-widest text-[10px]">#KigaliGreens</span>
+              <span className="font-black uppercase tracking-widest text-[10px]">#GlobalGrill</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-black uppercase mb-4 tracking-tighter">Flame <span className="text-gradient">Gallery</span></h2>
-            <p className="text-white/20 max-w-lg mb-8 uppercase font-bold text-[10px] tracking-[0.2em]">Visual proof of our hilltop obsession.</p>
+            <h2 className="text-4xl md:text-5xl font-black uppercase mb-4 tracking-tighter text-black">Flame <span className="text-gradient">Gallery</span></h2>
+            <p className="text-black/20 max-w-lg mb-8 uppercase font-black text-[10px] tracking-[0.2em]">Visual proof of our global obsession with flavor.</p>
             <button 
               onClick={() => window.open('https://instagram.com', '_blank')}
-              className="group flex items-center gap-2 px-8 py-3 bg-white/5 border border-white/10 rounded-full hover:bg-brand-green hover:text-dark-surface transition-all font-black text-[10px] uppercase tracking-widest shadow-2xl"
+              className="group flex items-center gap-2 px-8 py-3 bg-zinc-50 border border-black/5 rounded-full hover:bg-brand-red hover:text-white transition-all font-black text-[10px] uppercase tracking-widest shadow-sm hover:shadow-xl hover:shadow-brand-red/20"
             >
-              <Instagram className="w-4 h-4 text-brand-lime group-hover:text-dark-surface transition-colors" />
-              Join the Movement
+              <Instagram className="w-4 h-4 text-brand-red group-hover:text-white transition-colors" />
+              Join the Feed
             </button>
           </div>
 
@@ -38,19 +38,19 @@ export function Gallery() {
                  whileInView={{ opacity: 1, scale: 1 }}
                  transition={{ delay: i * 0.05 }}
                  viewport={{ once: true }}
-                 className={`relative group overflow-hidden rounded-[32px] border border-white/5 ${
+                 className={`relative group overflow-hidden rounded-[40px] border border-black/5 ${
                    img.size === 'lg' ? 'col-span-2 row-span-2' : 'col-span-1 row-span-1'
                  }`}
                 >
                   <img 
                    src={img.url} 
                    alt="Food Gallery Item" 
-                   className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000 grayscale group-hover:grayscale-0" 
+                   className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000 grayscale group-hover:grayscale-0 shadow-inner" 
                    referrerPolicy="no-referrer"
                   />
-                  <div className="absolute inset-0 bg-brand-green/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center backdrop-blur-[2px]">
-                     <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-md">
-                        <Fullscreen className="text-white w-6 h-6" />
+                  <div className="absolute inset-0 bg-brand-red/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center backdrop-blur-[2px]">
+                     <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-2xl">
+                        <Fullscreen className="text-brand-red w-6 h-6" />
                      </div>
                   </div>
                 </motion.div>

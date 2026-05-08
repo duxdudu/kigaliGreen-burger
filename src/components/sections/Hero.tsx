@@ -4,10 +4,10 @@ import { Button } from '../ui/Button';
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 px-6">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 px-6 bg-white">
       {/* Background Decor */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-green/5 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute top-[20%] right-[10%] w-[400px] h-[400px] bg-brand-lime/10 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-red/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-[20%] right-[10%] w-[400px] h-[400px] bg-brand-yellow/10 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center relative z-10">
         <motion.div
@@ -19,34 +19,34 @@ export function Hero() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-full text-brand-lime text-xs font-bold uppercase tracking-wider mb-6"
+            className="inline-flex items-center gap-2 px-3 py-1 bg-brand-red/5 border border-brand-red/10 rounded-full text-brand-red text-[10px] font-black uppercase tracking-widest mb-6"
           >
             <Star className="w-3 h-3 fill-current" />
-            Voted #1 Burger in Kigali
+            Voted #1 Burger in the Region
           </motion.div>
 
-          <h1 className="text-6xl md:text-8xl lg:text-[110px] leading-[0.9] font-black uppercase mb-6">
-            Hill-to <br />
-            <span className="text-gradient">Bun Fresh</span>
+          <h1 className="text-6xl md:text-8xl lg:text-[100px] leading-[0.85] font-black uppercase mb-6">
+            Kigali's <br />
+            <span className="text-gradient">Red Flame</span>
           </h1>
           
-          <p className="text-white/60 text-lg md:text-xl max-w-lg mb-8 font-medium">
-            Experience the genuine taste of flame-grilled perfection. Local Akagera beef, farm-fresh Nyabugogo veggies, and 100% natural heat.
+          <p className="text-black/60 text-lg md:text-xl max-w-lg mb-8 font-medium italic">
+            Experience the genuine taste of flame-grilled perfection. Local Akagera beef, premium ingredients, and 100% natural heat.
           </p>
 
           <div className="flex flex-wrap gap-4 mb-12">
             <Button 
               size="xl" 
-              className="group"
+              className="group bg-brand-red text-white hover:bg-brand-red/90"
               onClick={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              Order in Kigali
+              Order Now
               <ArrowRight className="ml-2 w-6 h-6 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button 
               variant="outline" 
               size="xl" 
-              className="gap-2"
+              className="gap-2 border-black/10 text-black hover:bg-black/5"
               onClick={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })}
             >
               <Play className="w-5 h-5 fill-current" />
@@ -56,8 +56,8 @@ export function Hero() {
 
           <div className="grid grid-cols-3 gap-8">
              {[
-               { icon: MapPin, label: "Fast Cities", sub: "Kigali Wide" },
-               { icon: Star, label: "Fresh Daily", sub: "Rwandan Local" },
+               { icon: MapPin, label: "Kigali Wide", sub: "Fast Delivery" },
+               { icon: Star, label: "Fresh Daily", sub: "Akagera Beef" },
                { icon: Zap, label: "Hot & Ready", sub: "24/7 Service" }
              ].map((item, idx) => (
                <motion.div 
@@ -67,9 +67,9 @@ export function Hero() {
                 transition={{ delay: 0.5 + idx * 0.1 }}
                 className="flex flex-col gap-1"
                >
-                 <item.icon className="text-brand-lime w-5 h-5 mb-1" />
-                 <span className="text-sm font-bold">{item.label}</span>
-                 <span className="text-[10px] text-white/40 uppercase font-bold tracking-widest">{item.sub}</span>
+                 <item.icon className="text-brand-red w-5 h-5 mb-1" />
+                 <span className="text-xs font-bold uppercase">{item.label}</span>
+                 <span className="text-[8px] text-black/40 uppercase font-black tracking-widest leading-none">{item.sub}</span>
                </motion.div>
              ))}
           </div>
@@ -96,8 +96,8 @@ export function Hero() {
           >
             <img 
               src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=2000" 
-              alt="Premium Beast Burger" 
-              className="w-full max-w-[500px] drop-shadow-[0_20px_50px_rgba(225,29,72,0.4)]"
+              alt="Premium Burger" 
+              className="w-full max-w-[500px] drop-shadow-[0_20px_50px_rgba(230,30,42,0.3)]"
               referrerPolicy="no-referrer"
             />
             
@@ -105,34 +105,34 @@ export function Hero() {
             <motion.div 
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 4, repeat: Infinity }}
-              className="absolute -top-10 -right-10 glass-morphism p-4 rounded-2xl flex items-center gap-3"
+              className="absolute -top-10 -right-10 glass-morphism p-4 rounded-3xl flex items-center gap-3 shadow-xl"
             >
-              <div className="w-10 h-10 bg-brand-yellow rounded-lg flex items-center justify-center text-black font-black">
+              <div className="w-10 h-10 bg-brand-yellow rounded-xl flex items-center justify-center text-black font-black">
                 9.8
               </div>
               <div className="flex flex-col">
-                <span className="text-xs font-bold uppercase">Customer Score</span>
-                <span className="text-[10px] text-white/60">From 50k+ reviews</span>
+                <span className="text-[10px] font-black uppercase">User Score</span>
+                <span className="text-[8px] text-black/40 font-bold">50k+ Reviews</span>
               </div>
             </motion.div>
 
             <motion.div 
               animate={{ y: [0, -15, 0] }}
               transition={{ duration: 5, repeat: Infinity, delay: 0.5 }}
-              className="absolute top-1/2 -left-20 glass-morphism p-4 rounded-2xl flex items-center gap-3"
+              className="absolute top-1/2 -left-20 glass-morphism p-4 rounded-3xl flex items-center gap-3 shadow-xl"
             >
-              <div className="w-10 h-10 bg-brand-red rounded-lg flex items-center justify-center text-white font-black">
+              <div className="w-10 h-10 bg-brand-red rounded-xl flex items-center justify-center text-white font-black">
                 <Flame className="w-6 h-6 animate-pulse" />
               </div>
               <div className="flex flex-col">
-                <span className="text-xs font-bold uppercase">Fresh From Fire</span>
-                <span className="text-[10px] text-white/60">Flame Grilled Daily</span>
+                <span className="text-[10px] font-black uppercase">Flame Grilled</span>
+                <span className="text-[8px] text-black/40 font-bold">Cooked to Order</span>
               </div>
             </motion.div>
           </motion.div>
 
           {/* Background Glow */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-brand-green/20 via-transparent to-brand-lime/20 rounded-full blur-[150px] scale-150 animate-pulse" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-brand-red/10 via-transparent to-brand-yellow/10 rounded-full blur-[150px] scale-150 animate-pulse" />
         </motion.div>
       </div>
     </section>

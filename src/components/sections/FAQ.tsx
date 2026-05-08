@@ -25,44 +25,45 @@ export function FAQ() {
   const [active, setActive] = useState<number | null>(0);
 
   return (
-    <section className="py-24 px-6 bg-[#050505]">
+    <section className="py-24 px-6 bg-white">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 text-brand-orange mb-4">
+          <div className="inline-flex items-center gap-2 text-brand-red mb-4">
              <HelpCircle className="w-5 h-5" />
-             <span className="font-black uppercase tracking-widest text-xs">Support</span>
+             <span className="font-black uppercase tracking-widest text-[10px]">Burger Intel</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-black uppercase">Common <span className="text-gradient">Questions</span></h2>
+          <h2 className="text-4xl md:text-5xl font-black uppercase text-black">Common <span className="text-gradient">Questions</span></h2>
+          <p className="text-black/40 text-[10px] uppercase font-black tracking-widest mt-4">Everything you need to know about the global grill experience.</p>
         </div>
 
         <div className="space-y-4">
            {FAQS.map((faq, i) => (
              <div 
               key={i}
-              className="bg-white/5 border border-white/5 rounded-3xl overflow-hidden hover:border-white/10 transition-colors"
+              className={`border rounded-[32px] overflow-hidden transition-all duration-300 ${active === i ? 'bg-zinc-50 border-brand-red/30 shadow-xl shadow-black/5' : 'bg-white border-black/5 hover:border-black/10 shadow-sm'}`}
              >
-               <button 
-                onClick={() => setActive(active === i ? null : i)}
-                className="w-full flex items-center justify-between p-6 text-left"
-               >
-                 <span className="text-lg font-black uppercase tracking-tight">{faq.q}</span>
-                 <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center">
-                    {active === i ? <Minus className="w-4 h-4 text-brand-red" /> : <Plus className="w-4 h-4 text-white" />}
-                 </div>
-               </button>
-               <AnimatePresence>
-                  {active === i && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                    >
-                      <div className="px-6 pb-6 pt-0 text-white/50 leading-relaxed font-medium italic">
-                        "{faq.a}"
-                      </div>
-                    </motion.div>
-                  )}
-               </AnimatePresence>
+                <button 
+                 onClick={() => setActive(active === i ? null : i)}
+                 className="w-full flex items-center justify-between p-8 text-left group"
+                >
+                  <span className="text-lg font-black uppercase tracking-tight text-black group-hover:text-brand-red transition-colors">{faq.q}</span>
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${active === i ? 'bg-brand-red text-white' : 'bg-black/[0.02] text-black/40'}`}>
+                     {active === i ? <Minus className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
+                  </div>
+                </button>
+                <AnimatePresence>
+                   {active === i && (
+                     <motion.div
+                       initial={{ height: 0, opacity: 0 }}
+                       animate={{ height: 'auto', opacity: 1 }}
+                       exit={{ height: 0, opacity: 0 }}
+                     >
+                       <div className="px-8 pb-8 pt-0 text-black/40 text-[10px] font-black uppercase tracking-widest leading-relaxed italic">
+                         "{faq.a}"
+                       </div>
+                     </motion.div>
+                   )}
+                </AnimatePresence>
              </div>
            ))}
         </div>

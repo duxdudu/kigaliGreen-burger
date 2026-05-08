@@ -45,20 +45,20 @@ export function OrderTrackingMap() {
 
   if (!hasValidKey) {
     return (
-      <div className="w-full h-[400px] bg-white/5 rounded-[40px] border border-white/10 flex flex-col items-center justify-center p-8 text-center">
-        <div className="w-16 h-16 bg-brand-lime/20 rounded-full flex items-center justify-center mb-6">
-          <Navigation className="text-brand-lime w-8 h-8 animate-pulse" />
+      <div className="w-full h-[400px] bg-black/[0.02] rounded-[40px] border border-black/5 flex flex-col items-center justify-center p-8 text-center shadow-inner">
+        <div className="w-16 h-16 bg-brand-red/10 rounded-full flex items-center justify-center mb-6">
+          <Navigation className="text-brand-red w-8 h-8 animate-pulse" />
         </div>
-        <h3 className="text-xl font-black uppercase mb-4 text-white">Live Tracking Active</h3>
-        <p className="text-white/40 max-w-md mb-8 italic">
-          Kigali Greens tracking system is ready. Set your GOOGLE_MAPS_PLATFORM_KEY to see the rider live.
+        <h3 className="text-xl font-black uppercase mb-4 text-black">Live Tracking Ready</h3>
+        <p className="text-black/40 max-w-md mb-8 italic uppercase text-[10px] font-bold tracking-widest">
+          Global Grill tracking system is primed. Set your GOOGLE_MAPS_PLATFORM_KEY to see your burger crossing borders live.
         </p>
       </div>
     );
   }
 
   return (
-    <div className="w-full h-full min-h-[500px] lg:min-h-0 rounded-[40px] overflow-hidden border border-white/10 relative">
+    <div className="w-full h-full min-h-[500px] lg:min-h-0 rounded-[40px] overflow-hidden border border-black/5 relative shadow-2xl">
       <APIProvider apiKey={API_KEY} version="weekly">
         <Map
           center={progress > 0 ? deliveryPos : RESTAURANT_LOC}
@@ -66,7 +66,7 @@ export function OrderTrackingMap() {
           mapId="AISTUDIO_TRACKING"
           disableDefaultUI={true}
           gestureHandling="greedy"
-          colorScheme="DARK"
+          colorScheme="LIGHT"
           internalUsageAttributionIds={['gmp_mcp_codeassist_v1_aistudio']}
           style={{ width: '100%', height: '100%' }}
         >
@@ -74,26 +74,26 @@ export function OrderTrackingMap() {
           
           {/* Restaurant */}
           <AdvancedMarker position={RESTAURANT_LOC}>
-            <div className="w-8 h-8 bg-brand-green rounded-full flex items-center justify-center border-2 border-white/20">
-              <Package className="w-4 h-4 text-dark-surface" />
+            <div className="w-10 h-10 bg-brand-red rounded-xl flex items-center justify-center border-4 border-white shadow-xl rotate-3">
+              <Package className="w-5 h-5 text-white" />
             </div>
           </AdvancedMarker>
 
           {/* Delivery Rider */}
           <AdvancedMarker position={deliveryPos}>
             <motion.div 
-              animate={{ scale: [1, 1.2, 1] }} 
+              animate={{ scale: [1, 1.1, 1] }} 
               transition={{ duration: 2, repeat: Infinity }}
-              className="w-10 h-10 bg-brand-lime rounded-full flex items-center justify-center border-2 border-white shadow-2xl"
+              className="w-12 h-12 bg-brand-yellow rounded-full flex items-center justify-center border-4 border-white shadow-2xl"
             >
-              <Truck className="w-5 h-5 text-dark-surface" />
+              <Truck className="w-6 h-6 text-black" />
             </motion.div>
           </AdvancedMarker>
 
           {/* User Destination */}
           <AdvancedMarker position={USER_LOC}>
-            <div className="w-8 h-8 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border-2 border-brand-lime">
-              <MapPin className="w-4 h-4 text-brand-lime" />
+            <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center border-4 border-brand-red shadow-xl">
+              <MapPin className="w-5 h-5 text-brand-red" />
             </div>
           </AdvancedMarker>
         </Map>
@@ -101,30 +101,30 @@ export function OrderTrackingMap() {
 
       {/* Tracking Overlay */}
       <div className="absolute top-6 left-6 right-6 lg:left-6 lg:right-auto lg:w-72">
-        <div className="glass-morphism p-6 rounded-[32px] space-y-4 border-white/5">
+        <div className="bg-white/90 backdrop-blur-md p-6 rounded-[32px] space-y-4 shadow-xl border border-black/5">
            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-brand-green/10 flex items-center justify-center">
-                 {status === 'DELIVERED' ? <CheckCircle2 className="text-brand-green" /> : <Truck className="text-brand-lime animate-bounce" />}
+              <div className="w-12 h-12 rounded-2xl bg-brand-red/10 flex items-center justify-center">
+                 {status === 'DELIVERED' ? <CheckCircle2 className="text-brand-red" /> : <Truck className="text-brand-red animate-bounce" />}
               </div>
               <div>
-                <p className="text-[10px] text-white/40 font-black uppercase tracking-widest leading-none mb-1">Status</p>
-                <h4 className="font-black uppercase text-sm">
-                  {status === 'PREPARING' && 'Kitchen Firing...'}
-                  {status === 'PICKED_UP' && 'Rider on Route'}
-                  {status === 'DELIVERED' && 'Order Arrived!'}
+                <p className="text-[8px] text-black/40 font-black uppercase tracking-[2px] leading-none mb-1">Live Status</p>
+                <h4 className="font-black uppercase text-xs text-black">
+                  {status === 'PREPARING' && 'Kitchen Active...'}
+                  {status === 'PICKED_UP' && 'Driver in Route'}
+                  {status === 'DELIVERED' && 'Delivered!'}
                 </h4>
               </div>
            </div>
-           <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+           <div className="h-2 w-full bg-black/5 rounded-full overflow-hidden">
               <motion.div 
-                className="h-full bg-brand-lime" 
+                className="h-full bg-brand-red shadow-[0_0_10px_rgba(230,30,42,0.5)]" 
                 initial={{ width: 0 }}
                 animate={{ width: `${progress}%` }}
               />
            </div>
-           <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-white/20">
-              <span>Restaurant</span>
-              <span>Home</span>
+           <div className="flex justify-between text-[8px] font-black uppercase tracking-widest text-black/20">
+              <span>Kitchen</span>
+              <span>Destination</span>
            </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ShoppingBag, X, Plus, Minus, Trash2, ArrowRight, CheckCircle2, Clock } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
@@ -7,11 +7,27 @@ import { Button } from '../ui/Button';
 import { db } from '../../lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { handleFirestoreError, OperationType } from '../../lib/firestoreUtils';
+import confetti from 'canvas-confetti';
 
 export function CartDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const { cart, updateQuantity, removeFromCart, total, itemCount, clearCart, setIsTrackingActive } = useCart();
   const { user } = useAuth();
   const [isConfirmed, setIsConfirmed] = useState(false);
+
+  const triggerConfetti = () => {
+    confetti({
+      particleCount: 150,
+      spread: 70,
+      origin: { y: 0.6 },
+      colors: ['#D62828', '#FFC72C', '#F5A623', '#000000']
+    });
+  };
+
+  useEffect(() => {
+    if (isConfirmed) {
+      triggerConfetti();
+    }
+  }, [isConfirmed]);
 
   const handleConfirm = async () => {
     if (user) {
@@ -58,25 +74,25 @@ export function CartDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () =
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed top-0 right-0 h-full w-full max-w-md bg-dark-card border-l border-white/10 z-[101] shadow-2xl flex flex-col"
+            className="fixed top-0 right-0 h-full w-full max-w-md bg-white border-l border-black/5 z-[101] shadow-2xl flex flex-col"
           >
             {/* Header */}
-            <div className="p-6 border-b border-white/10 flex items-center justify-between">
+            <div className="p-6 border-b border-black/5 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-brand-green/20 rounded-xl flex items-center justify-center">
-                  <ShoppingBag className="text-brand-green w-6 h-6" />
+                <div className="w-10 h-10 bg-brand-red/10 rounded-xl flex items-center justify-center">
+                  <ShoppingBag className="text-brand-red w-6 h-6" />
                 </div>
                 <div>
-                  <h2 className="text-xl font-black uppercase">
-                    {isConfirmed ? 'Booking Confirmed' : 'Your Feast'}
+                  <h2 className="text-xl font-black uppercase text-black">
+                    {isConfirmed ? 'Order Confirmed' : 'Your Bag'}
                   </h2>
-                  <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest">
-                    {isConfirmed ? 'Order #KG-1234' : `${itemCount} Items Ready`}
+                  <p className="text-[10px] text-black/40 font-bold uppercase tracking-widest">
+                    {isConfirmed ? 'Order #GG-8821' : `${itemCount} Global Flavors`}
                   </p>
                 </div>
               </div>
-              <button onClick={handleClose} className="p-2 hover:bg-white/5 rounded-full transition-colors">
-                <X className="w-6 h-6 text-white/60" />
+              <button onClick={handleClose} className="p-2 hover:bg-black/5 rounded-full transition-colors text-black/40 hover:text-black">
+                <X className="w-6 h-6" />
               </button>
             </div>
 
@@ -90,26 +106,26 @@ export function CartDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () =
                     animate={{ opacity: 1, scale: 1 }}
                     className="h-full flex flex-col items-center justify-center text-center p-4"
                   >
-                    <div className="w-24 h-24 bg-brand-green rounded-full flex items-center justify-center mb-8 shadow-2xl shadow-brand-green/40">
-                      <CheckCircle2 className="w-12 h-12 text-dark-surface" />
+                    <div className="w-24 h-24 bg-brand-red rounded-full flex items-center justify-center mb-8 shadow-2xl shadow-brand-red/20">
+                      <CheckCircle2 className="w-12 h-12 text-white" />
                     </div>
-                    <h3 className="text-3xl font-black uppercase mb-4">You're All Set!</h3>
-                    <p className="text-white/60 text-lg mb-12 italic">
-                      Our kitchen is firing up your order. Get ready for the best grill in Kigali!
+                    <h3 className="text-3xl font-black uppercase mb-4 text-black">Order Received!</h3>
+                    <p className="text-black/60 text-sm mb-12 italic uppercase font-bold tracking-widest">
+                      Our chefs are firing up the grill. Your global journey begins now!
                     </p>
 
-                    <div className="w-full bg-white/5 border border-white/10 rounded-[32px] p-8 space-y-6">
+                    <div className="w-full bg-black/[0.02] border border-black/5 rounded-[40px] p-8 space-y-6">
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3 text-brand-lime">
+                        <div className="flex items-center gap-3 text-brand-red">
                           <Clock className="w-6 h-6" />
-                          <span className="font-black uppercase text-sm">Est. Delivery</span>
+                          <span className="font-black uppercase text-[10px] tracking-widest">Est. Wait</span>
                         </div>
-                        <span className="text-2xl font-black text-white">30-45 mins</span>
+                        <span className="text-2xl font-black text-black">20-35 mins</span>
                       </div>
-                      <div className="h-px bg-white/10 w-full" />
+                      <div className="h-px bg-black/5 w-full" />
                       <div className="text-left space-y-2">
-                        <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest">Delivery Address</p>
-                        <p className="font-bold">Nyarutarama Highlands, Kigali</p>
+                        <p className="text-[10px] text-black/40 font-bold uppercase tracking-widest">Fast Delivery</p>
+                        <p className="font-black text-xs text-black/80">Premium Hot & Ready Service</p>
                       </div>
                     </div>
 
@@ -118,27 +134,24 @@ export function CartDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () =
                         onClick={() => {
                           setIsTrackingActive(true);
                           handleClose();
-                          setTimeout(() => {
-                            document.getElementById('bookings')?.scrollIntoView({ behavior: 'smooth' });
-                          }, 300);
                         }} 
-                        className="w-full gap-2 py-6"
+                        className="w-full gap-2 py-6 bg-brand-red text-white hover:bg-brand-red/90"
                       >
-                        Track Order Live
+                        Track Progress
                         <ArrowRight className="w-5 h-5" />
                       </Button>
-                      <Button onClick={handleClose} variant="outline" className="w-full">
-                        Back to Menu
+                      <Button onClick={handleClose} variant="outline" className="w-full border-black/10 text-black/60">
+                        Continue Exploring
                       </Button>
                     </div>
                   </motion.div>
                 ) : (
                   <motion.div key="list" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
                     {cart.length === 0 ? (
-                      <div className="h-full flex flex-col items-center justify-center text-center opacity-40 py-20">
+                      <div className="h-full flex flex-col items-center justify-center text-center opacity-20 py-20 grayscale">
                         <ShoppingBag className="w-16 h-16 mb-4" />
-                        <p className="text-lg font-bold">Your cart is empty.</p>
-                        <p className="text-sm italic">The hills are calling for a burger!</p>
+                        <p className="text-lg font-black uppercase">Your bag is empty.</p>
+                        <p className="text-[10px] italic font-bold tracking-widest uppercase">The grill is getting cold!</p>
                       </div>
                     ) : (
                       cart.map((item) => (
@@ -147,37 +160,37 @@ export function CartDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () =
                           key={item.id} 
                           className="flex gap-4 group"
                         >
-                          <div className="w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 border border-white/5">
+                          <div className="w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 border border-black/5 bg-zinc-100">
                             <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
                           </div>
                           <div className="flex-1 flex flex-col justify-between py-1">
                             <div className="flex justify-between items-start">
                               <div>
-                                <h4 className="font-bold uppercase text-sm group-hover:text-brand-green transition-colors">{item.name}</h4>
-                                <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest">{item.category}</p>
+                                <h4 className="font-black uppercase text-xs text-black/80 group-hover:text-brand-red transition-colors">{item.name}</h4>
+                                <p className="text-[8px] text-black/40 font-black uppercase tracking-[2px]">{item.category}</p>
                               </div>
-                              <span className="font-black text-brand-lime">{(item.price * item.quantity).toLocaleString()} Frw</span>
+                              <span className="font-black text-brand-red text-sm">{(item.price * item.quantity).toLocaleString()} FRW</span>
                             </div>
                             
                             <div className="flex items-center justify-between">
-                               <div className="flex items-center gap-3 bg-white/5 rounded-lg p-1">
+                               <div className="flex items-center gap-3 bg-black/[0.04] rounded-xl p-1">
                                   <button 
                                     onClick={() => updateQuantity(item.id, -1)}
-                                    className="w-6 h-6 flex items-center justify-center hover:bg-white/10 rounded transition-colors"
+                                    className="w-6 h-6 flex items-center justify-center hover:bg-black/10 rounded-full transition-colors"
                                   >
-                                    <Minus className="w-3 h-3 text-white/40" />
+                                    <Minus className="w-3 h-3 text-black/40" />
                                   </button>
-                                  <span className="text-xs font-black min-w-[20px] text-center">{item.quantity}</span>
+                                  <span className="text-[10px] font-black min-w-[20px] text-center text-black">{item.quantity}</span>
                                   <button 
                                     onClick={() => updateQuantity(item.id, 1)}
-                                    className="w-6 h-6 flex items-center justify-center hover:bg-white/10 rounded transition-colors"
+                                    className="w-6 h-6 flex items-center justify-center hover:bg-black/10 rounded-full transition-colors"
                                   >
-                                    <Plus className="w-3 h-3 text-white" />
+                                    <Plus className="w-3 h-3 text-black" />
                                   </button>
                                </div>
                                <button 
                                 onClick={() => removeFromCart(item.id)}
-                                className="p-1.5 text-white/20 hover:text-red-500 transition-colors"
+                                className="p-1.5 text-black/20 hover:text-brand-red transition-colors"
                                >
                                   <Trash2 className="w-4 h-4" />
                                </button>
@@ -193,20 +206,16 @@ export function CartDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () =
 
             {/* Footer */}
             {cart.length > 0 && !isConfirmed && (
-              <div className="p-6 bg-white/5 border-t border-white/10 space-y-4">
+              <div className="p-6 bg-white border-t border-black/5 space-y-4">
                 <div className="flex justify-between items-center">
-                  <span className="text-white/40 font-bold uppercase tracking-widest text-xs">Subtotal</span>
-                  <span className="text-2xl font-black text-brand-green">{total.toLocaleString()} Frw</span>
+                  <span className="text-black/40 font-black uppercase tracking-widest text-[10px]">Total Order</span>
+                  <span className="text-2xl font-black text-brand-red">{total.toLocaleString()} FRW</span>
                 </div>
-                <div className="flex justify-between items-center text-[10px] text-white/20 font-bold uppercase tracking-widest">
-                  <span>Delivery Fee</span>
-                  <span>Calculated at checkout</span>
-                </div>
-                <Button size="lg" onClick={handleConfirm} className="w-full gap-2 mt-4 group">
-                  Confirm Booking 
+                <Button size="lg" onClick={handleConfirm} className="w-full gap-2 mt-4 group bg-brand-red text-white hover:bg-brand-red/90 py-6 text-sm uppercase font-black tracking-widest">
+                  Confirm Order
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
-                <p className="text-center text-[8px] text-white/20 font-bold uppercase tracking-[2px]">Secured by Kigali Pay</p>
+                <p className="text-center text-[7px] text-black/20 font-black uppercase tracking-[3px]">Global Secure Payments</p>
               </div>
             )}
           </motion.div>

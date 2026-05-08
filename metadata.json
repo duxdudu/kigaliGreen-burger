@@ -1,6 +1,6 @@
 {
-  "name": "Kigali Greens - Premium Fast Food",
-  "description": "Premium fast-food experience in Kigali, Rwanda. Lush green aesthetics, local Rwandan ingredients, and cinematic animations.",
-  "requestFramePermissions": [],
-  "majorCapabilities": []
+  "name": "Kigali Grill - Premium Burger Experience",
+  "description": "Premium Kigali burger experience with local Rwandan ingredients. Real-time tracking across the hills, red & yellow theme, and sophisticated typography.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["firebase", "google-maps"]
 }
